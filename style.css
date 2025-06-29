@@ -14,12 +14,28 @@ h1 {
 }
 
 main {
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  justify-content: center;
+  gap: 10px;
+}
+
+section {
   padding: 10px;
   display: grid;
-  grid-template-columns: repeat(16, 1fr);
+  grid-template-columns: repeat(11, 1fr);
   grid-gap: 10px;
   align-items: center;
   justify-items: center;
+  border: 1px solid #FFFFFF06;
+  border-radius: 2px;
+  break-inside: avoid;
+  overflow: visible;
+}
+
+#others {
+  grid-template-columns: repeat(12, 1fr);
 }
 
 card-color {
@@ -30,4 +46,16 @@ card-color {
   border-radius: 3px;
   cursor: pointer;
   position: relative;
+}
+
+card-color[empty] {
+  border: 0px;
+  cursor: default;
+}
+
+@media screen and (max-width: 1450px) {
+  main {
+    flex-direction: column;
+    align-items: center;
+  }
 }
