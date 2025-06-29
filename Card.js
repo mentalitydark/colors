@@ -1,8 +1,15 @@
 export class Card extends HTMLElement {
 
   connectedCallback() {
-    const color = this.getAttribute('color') || '#383838'
-    this.style.backgroundColor = color
+    const color = this.getAttribute('color')
+    const tooltipText = this.getAttribute('tooltip')
+
+    if (color) {
+      this.style.backgroundColor = color
+    } else {
+      this.setAttribute('empty', '')
+      return
+    }
 
     this.addEventListener('click', async () => {
       try {
@@ -18,7 +25,7 @@ export class Card extends HTMLElement {
 
     this.addEventListener('mouseenter', (e) => {
       const tooltip = document.createElement('div')
-      tooltip.textContent = color.match(/#[a-z0-9]{6}/i) ? color.toUpperCase() : color
+      tooltip.innerHTML = tooltipText.replace('\\n', '<br/>')
       tooltip.style.position = 'absolute'
       tooltip.style.bottom = this.getBoundingClientRect().top < 50 ? '-50%' : '110%'
       tooltip.style.left = '50%'
@@ -31,6 +38,7 @@ export class Card extends HTMLElement {
       tooltip.style.pointerEvents = 'none'
       tooltip.style.zIndex = '1000'
       tooltip.style.transform = 'translate(-50%)'
+      tooltip.style.textAlign = 'center'
 
       tooltip.classList.add('tooltip')
 
